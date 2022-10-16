@@ -65,6 +65,7 @@ export function Board() {
         style={{ position: 'absolute', top: '0', left: '0', pointerEvents: 'none', zIndex: '10' }}
       >
         {arrows.map(arrow => {
+          // isArrow(arrow) ? return (<Arrow>):
           const from = getRelativeCoords(boardOrientation, boardWidth, arrow[0]);
           const to = getRelativeCoords(boardOrientation, boardWidth, arrow[1]);
 
@@ -86,6 +87,8 @@ export function Board() {
             </Fragment>
           );
         })}
+
+
       </svg>
     </div>
   ) : (
