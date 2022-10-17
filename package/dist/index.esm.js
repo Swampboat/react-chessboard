@@ -6744,8 +6744,13 @@ function Board() {
         zIndex: '10'
       },
       children: arrows.map(arrow => {
-        const from = getRelativeCoords(boardOrientation, boardWidth, arrow[0]);
-        const to = getRelativeCoords(boardOrientation, boardWidth, arrow[1]);
+        // TODO check array len
+        const fromCoords = getRelativeCoords(boardOrientation, boardWidth, (arrow === null || arrow === void 0 ? void 0 : arrow.from) || arrow[0]);
+        const toCoords = getRelativeCoords(boardOrientation, boardWidth, (arrow === null || arrow === void 0 ? void 0 : arrow.to) || arrow[1]);
+        const arrowColor = (arrow === null || arrow === void 0 ? void 0 : arrow.color) || customArrowColor;
+        const key = !!arrow.from ? `${arrow.from}-${arrow.to}` : `${arrow[0]}-${arrow[1]}`;
+        const widthModifier = (arrow === null || arrow === void 0 ? void 0 : arrow.widthModifier) || 1;
+        console.log(arrowColor, key);
         return /*#__PURE__*/jsxs(Fragment$1, {
           children: [/*#__PURE__*/jsx("defs", {
             children: /*#__PURE__*/jsx("marker", {
@@ -6758,22 +6763,22 @@ function Board() {
               children: /*#__PURE__*/jsx("polygon", {
                 points: "0 0, 2 1.25, 0 2.5",
                 style: {
-                  fill: customArrowColor
+                  fill: arrowColor
                 }
               })
             })
           }), /*#__PURE__*/jsx("line", {
-            x1: from.x,
-            y1: from.y,
-            x2: to.x,
-            y2: to.y,
+            x1: fromCoords.x,
+            y1: fromCoords.y,
+            x2: toCoords.x,
+            y2: toCoords.y,
             style: {
-              stroke: customArrowColor,
-              strokeWidth: boardWidth / 36
+              stroke: arrowColor,
+              strokeWidth: boardWidth / 36 * widthModifier
             },
             markerEnd: "url(#arrowhead)"
           })]
-        }, `${arrow[0]}-${arrow[1]}`);
+        }, key);
       })
     })]
   }) : /*#__PURE__*/jsx(WhiteKing, {});
