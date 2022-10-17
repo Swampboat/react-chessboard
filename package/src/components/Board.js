@@ -71,12 +71,12 @@ export function Board() {
           const arrowColor = arrow?.color || customArrowColor;
           const key = !!arrow.from  ? `${arrow.from}-${arrow.to}` : `${arrow[0]}-${arrow[1]}`
           const widthModifier = arrow?.widthModifier || 1;
-          console.log(arrowColor, key);
+          console.log(arrowColor, key); // TODO remove
           return (
             <Fragment key={key}>
               <defs>
                 <marker id="arrowhead" markerWidth="2" markerHeight="2.5" refX="1.25" refY="1.25" orient="auto">
-                  <polygon points="0 0, 2 1.25, 0 2.5" style={{fill: arrowColor }} />
+                  <polygon points="0 0, 2 1.25, 0 2.5"  style={{fill: arrowColor }} /> 
                 </marker>
               </defs>
               <line
