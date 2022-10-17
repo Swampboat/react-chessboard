@@ -67,7 +67,7 @@ export function Board() {
         {arrows.map(arrow => {
           // isArrow(arrow) ? return (<Arrow>):
           const from = getRelativeCoords(boardOrientation, boardWidth, arrow[0]);
-          const to = getRelativeCoords(boardOrientation, boardWidth, arrow[1]);
+          const to = getRelativeCoords(boardOrientation, boardWidth, arrow[1]);       
 
           return (
             <Fragment key={`${arrow[0]}-${arrow[1]}`}>
