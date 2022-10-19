@@ -6751,45 +6751,51 @@ function Board() {
         pointerEvents: 'none',
         zIndex: '10'
       },
-      children: arrows.map(arrow => {
-        // TODO check array len
-        const fromCoords = getRelativeCoords(boardOrientation, boardWidth, (arrow === null || arrow === void 0 ? void 0 : arrow.from) || arrow[0]);
-        const toCoords = getRelativeCoords(boardOrientation, boardWidth, (arrow === null || arrow === void 0 ? void 0 : arrow.to) || arrow[1]);
-        const arrowColor = (arrow === null || arrow === void 0 ? void 0 : arrow.color) || customArrowColor;
-        const key = !!arrow.from ? `${arrow.from}-${arrow.to}` : `${arrow[0]}-${arrow[1]}`;
-        const widthModifier = (arrow === null || arrow === void 0 ? void 0 : arrow.widthModifier) || 1;
-        console.log(arrowColor, key);
-        return /*#__PURE__*/jsxRuntime.jsxs(React.Fragment, {
-          children: [/*#__PURE__*/jsxRuntime.jsx("defs", {
-            children: /*#__PURE__*/jsxRuntime.jsx("marker", {
-              id: "arrowhead",
-              markerWidth: "2",
-              markerHeight: "2.5",
-              refX: "1.25",
-              refY: "1.25",
-              orient: "auto",
-              children: /*#__PURE__*/jsxRuntime.jsx("polygon", {
-                points: "0 0, 2 1.25, 0 2.5",
-                style: {
-                  fill: arrowColor
-                }
-              })
-            })
-          }), /*#__PURE__*/jsxRuntime.jsx("line", {
-            x1: fromCoords.x,
-            y1: fromCoords.y,
-            x2: toCoords.x,
-            y2: toCoords.y,
-            style: {
-              stroke: arrowColor,
-              strokeWidth: boardWidth / 36 * widthModifier
-            },
-            markerEnd: "url(#arrowhead)"
-          })]
-        }, key);
-      })
+      children: arrows.map(arrow => /*#__PURE__*/jsxRuntime.jsx(Thing, {
+        arrow: arrow
+      }))
     })]
-  }) : /*#__PURE__*/jsxRuntime.jsx(WhiteKing, {});
+  }) : /*#__PURE__*/jsxRuntime.jsx(WhiteKing, {}); // TODO global colour check
+
+  function Thing(props) {
+    const arrow = props.arrow; // TODO check array len
+    const fromCoords = getRelativeCoords(boardOrientation, boardWidth, (arrow === null || arrow === void 0 ? void 0 : arrow.from) || arrow[0]);
+    const toCoords = getRelativeCoords(boardOrientation, boardWidth, (arrow === null || arrow === void 0 ? void 0 : arrow.to) || arrow[1]); // const arrowColor = arrow?.color || ArrowColor;
+
+    const arrowColor = arrow.color;
+    const key = !!arrow.from ? `${arrow.from}-${arrow.to}` : `${arrow[0]}-${arrow[1]}`;
+    const widthModifier = (arrow === null || arrow === void 0 ? void 0 : arrow.widthModifier) || 1;
+    console.log(key, arrowColor, widthModifier); // TODO remove
+
+    return /*#__PURE__*/jsxRuntime.jsxs(React.Fragment, {
+      children: [/*#__PURE__*/jsxRuntime.jsx("defs", {
+        children: /*#__PURE__*/jsxRuntime.jsx("marker", {
+          id: "arrowhead",
+          markerWidth: "2",
+          markerHeight: "2.5",
+          refX: "1.25",
+          refY: "1.25",
+          orient: "auto",
+          children: /*#__PURE__*/jsxRuntime.jsx("polygon", {
+            points: "0 0, 2 1.25, 0 2.5",
+            style: {
+              fill: arrowColor
+            }
+          })
+        })
+      }), /*#__PURE__*/jsxRuntime.jsx("line", {
+        x1: fromCoords.x,
+        y1: fromCoords.y,
+        x2: toCoords.x,
+        y2: toCoords.y,
+        style: {
+          stroke: arrowColor,
+          strokeWidth: boardWidth / 36 * widthModifier
+        },
+        markerEnd: "url(#arrowhead)"
+      })]
+    }, key);
+  }
 }
 
 function CustomDragLayer() {

@@ -104,10 +104,8 @@ export default function PlayVsRandom({ boardWidth }) {
             ['g1', 'f3'],
             {from: 'g2', to: 'g6'},
             {from: 'b2', to: 'b6', widthModifier: 1.5},
-            {from: 'e2', to: 'e6', widthModifier: 0.7, color : 'rgb(170,30,170)'},
             {from: 'a1', to: 'h8', widthModifier: 0.7, color : 'rgb(170,30,170)'},
-            {from: 'h5', to: 'a3', widthModifier: 0.3, color : 'rgb(170,30,170)'},
-            {from: 'h5', to: 'a3', widthModifier: 3, color : 'rgb(0, 100, 20)'},
+            {from: 'h5', to: 'd3', widthModifier: 3, color : 'rgb(0, 100, 20)'},
           ]);
         }}
       >

@@ -64,32 +64,7 @@ export function Board() {
         height={boardWidth}
         style={{ position: 'absolute', top: '0', left: '0', pointerEvents: 'none', zIndex: '10' }}
       >
-        {arrows.map(arrow => {
-          // TODO check array len
-          const fromCoords = getRelativeCoords(boardOrientation, boardWidth, arrow?.from || arrow[0]);
-          const toCoords = getRelativeCoords(boardOrientation, boardWidth, arrow?.to || arrow[1]);
-          const arrowColor = arrow?.color || customArrowColor;
-          const key = !!arrow.from  ? `${arrow.from}-${arrow.to}` : `${arrow[0]}-${arrow[1]}`
-          const widthModifier = arrow?.widthModifier || 1;
-          console.log(arrowColor, key); // TODO remove
-          return (
-            <Fragment key={key}>
-              <defs>
-                <marker id="arrowhead" markerWidth="2" markerHeight="2.5" refX="1.25" refY="1.25" orient="auto">
-                  <polygon points="0 0, 2 1.25, 0 2.5"  style={{fill: arrowColor }} /> 
-                </marker>
-              </defs>
-              <line
-                x1={fromCoords.x}
-                y1={fromCoords.y}
-                x2={toCoords.x}
-                y2={toCoords.y}
-                style={{ stroke: arrowColor, strokeWidth: boardWidth / 36 * widthModifier }}
-                markerEnd="url(#arrowhead)"
-              />
-            </Fragment>
-          );
-        })}
+        {arrows.map(arrow => <Thing arrow={arrow}/>)}
 
 
       </svg>
@@ -97,4 +72,37 @@ export function Board() {
   ) : (
     <WhiteKing />
   );
-}
+// TODO global colour check
+  function Thing(props ) {
+    const arrow = props.arrow
+      // TODO check array len
+      // TODO RM TEMP
+      const ArrowColor = 'rgb(255,170,255)';
+
+      const fromCoords = getRelativeCoords(boardOrientation, boardWidth, arrow?.from || arrow[0]);
+      const toCoords = getRelativeCoords(boardOrientation, boardWidth, arrow?.to || arrow[1]);
+      // const arrowColor = arrow?.color || ArrowColor;
+      const arrowColor = arrow.color;
+      const key = !!arrow.from  ? `${arrow.from}-${arrow.to}` : `${arrow[0]}-${arrow[1]}`
+      const widthModifier = arrow?.widthModifier || 1;
+      console.log(key, arrowColor, widthModifier); // TODO remove
+      return (
+        <Fragment key={key}>
+          <defs>
+            <marker id="arrowhead" markerWidth="2" markerHeight="2.5" refX="1.25" refY="1.25" orient="auto">
+              <polygon points="0 0, 2 1.25, 0 2.5"  style={{fill: arrowColor }} /> 
+            </marker>
+          </defs>
+          <line
+            x1={fromCoords.x}
+            y1={fromCoords.y}
+            x2={toCoords.x}
+            y2={toCoords.y}
+            style={{ stroke: arrowColor, strokeWidth: boardWidth / 36 * widthModifier }}
+            markerEnd="url(#arrowhead)"
+          />
+        </Fragment>
+      );
+    }
+  }
+
